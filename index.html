@@ -1,0 +1,643 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/beige.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<link rel='stylesheet' href='css/style.css'>
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+
+				<section>
+					<h1>CSS Grid Layout</h1>
+				</section>
+
+				<section>
+					<section>
+						<h2>Terminology</h2>
+					</section>
+					<section>
+						<pre><code>
+<div class="container">
+	<div class="item 1">1</div>
+	<div class="item 2">2</div>
+	<div class="item 3">3</div>
+	<div class="item 4">4</div>
+	<div class="item 5">5</div>
+	<div class="item 6">6</div>
+	<div class="item 7">7</div>
+	<div class="item 8">8</div>
+	<div class="item 9">9</div>
+</div>
+  						</code></pre>
+					</section>
+					<section>
+						<h3>Grid Container and grid item</h3>
+						<div class="container nine item">
+							<div class="item 1">1</div>
+							<div class="item 2">2</div>
+							<div class="item 3">3</div>
+							<div class="item 4">4</div>
+							<div class="item 5">5</div>
+							<div class="item 6">6</div>
+							<div class="item 7">7</div>
+							<div class="item 8">8</div>
+							<div class="item 9">9</div>
+						</div>
+					</section>
+					<section>
+						<h3>Grid line</h3>
+						<div class="container nine line">
+							<div class="item 1">1</div>
+							<div class="item 2">2</div>
+							<div class="item 3">3</div>
+							<div class="item 4">4</div>
+							<div class="item 5">5</div>
+							<div class="item 6">6</div>
+							<div class="item 7">7</div>
+							<div class="item 8">8</div>
+							<div class="item 9">9</div>
+						</div>
+					</section>
+					<section>
+						<h3>Grid track</h3>
+						<div class="container nine track">
+							<div class="item 1">1</div>
+							<div class="item 2">2</div>
+							<div class="item 3">3</div>
+							<div class="item 4">4</div>
+							<div class="item 5">5</div>
+							<div class="item 6">6</div>
+							<div class="item 7">7</div>
+							<div class="item 8">8</div>
+							<div class="item 9">9</div>
+							<div class="track hor"></div>
+							<div class="track vert"></div>
+						</div>
+					</section>
+					<section>
+						<h3>Grid cell</h3>
+						<div class="container nine cell">
+							<div class="item 1">1</div>
+							<div class="item 2">2</div>
+							<div class="item 3">3</div>
+							<div class="item 4">4</div>
+							<div class="item 5">5</div>
+							<div class="item 6">6</div>
+							<div class="item 7">7</div>
+							<div class="item 8">8</div>
+							<div class="item 9">9</div>
+							<div class="cell"></div>
+						</div>
+					</section>
+					<section>
+						<h3>Grid area</h3>
+						<div class="container nine area">
+							<div class="item 1">1</div>
+							<div class="item 2">2</div>
+							<div class="item 3">3</div>
+							<div class="item 4">4</div>
+							<div class="item 5">5</div>
+							<div class="item 6">6</div>
+							<div class="item 7">7</div>
+							<div class="item 8">8</div>
+							<div class="item 9">9</div>
+							<div class="area"></div>
+						</div>
+					</section>
+				</section>
+				
+				<section>
+					<section>
+						<h2>Properties for the Parent (Grid Container)</h2>
+					</section>
+					<section>
+						<h3>display</h3>
+						<div id="col">
+							<div id="left">
+								<pre><code>
+.container {
+	display: grid;
+}
+								</code></pre>
+								<smal>grid</smal>
+								<div class="container grid">
+									<div class="item 1">1</div>
+									<div class="item 2">2</div>
+									<div class="item 3">3</div>
+									<div class="item 4">4</div>
+									<div class="item 5">5</div>
+									<div class="item 6">6</div>
+								</div>
+							</div>
+							<div id="right">
+								<pre><code>
+.container {
+	display: inline-grid;
+}
+								</code></pre>
+								<small>inline-grid</small>
+								<div class="container inline-grid">
+									<div class="item 1">1</div>
+									<div class="item 2">2</div>
+									<div class="item 3">3</div>
+									<div class="item 4">4</div>
+									<div class="item 5">5</div>
+									<div class="item 6">6</div>
+								</div>
+							</div>
+						</div>						
+					</section>
+
+					<section>
+						<h3>grid-template-columns and grid-template-rows</h3>
+						<pre><code>
+.container {
+	grid-template-columns: 3fr 3fr 1fr;
+	grid-template-rows: 1fr 2fr 1fr;
+}
+						</code></pre>
+						<div class="container template-num">
+							<div class="item 1">1</div>
+							<div class="item 2">2</div>
+							<div class="item 3">3</div>
+							<div class="item 4">4</div>
+							<div class="item 5">5</div>
+							<div class="item 6">6</div>
+							<div class="item 7">7</div>
+							<div class="item 8">8</div>
+							<div class="item 9">9</div>
+						</div>
+						<!-- <div>
+							<pre><code>
+grid-template-columns: repeat(2, 3fr) 1fr
+							</code></pre>
+						</div>				 -->
+					</section>
+
+					<!-- <section>
+						<h3>grid-template-areas</h3>
+						<div id="col">
+							<div id="left">
+								<pre><code>
+.container {
+	height: 100%;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: 70px auto 40px;
+	grid-template-areas: 
+	    "header header header header"
+	    "main main . sidebar"
+	    "footer footer footer footer";
+}
+.item-1 {
+	grid-area: header;
+}
+.item-2 {
+	grid-area: main;
+}
+.item-3 {
+	grid-area: sidebar;
+}
+.item-4 {
+	grid-area: footer;
+}
+								</code></pre>
+							</div>
+							<div id="right">
+								<div class="container template-areas">
+									<div class="item i1">1</div>
+									<div class="item i2">2</div>
+									<div class="item i3">3</div>
+									<div class="item i4">4</div>
+								</div>
+							</div>
+						</div>
+					</section>
+					<section>
+						<h3>grid-template</h3>
+						<pre><code>
+.container {
+	grid-template:
+	  [row1-start] "header header header" 25px [row1-end]
+	  [row2-start] "footer footer footer" 25px [row2-end]
+	  / auto 50px auto;
+}
+						</code></pre>
+						<pre><code>
+.container {
+	grid-template-rows: [row1-start] 25px [row1-end row2-start] 25px [row2-end];
+	grid-template-columns: auto 50px auto;
+	grid-template-areas: 
+	  "header header header" 
+	  "footer footer footer";
+}
+						</code></pre>
+					</section> -->
+					<section>
+						<h3>grid-gap</h3>
+						<h4>grid-row-gap and grid-column-gap</h4>
+						<div id="col">
+							<div id="left">
+								<pre><code>
+.container {
+	column-gap: 10px;
+    row-gap: 15px;
+}
+								</code></pre>
+							</div>
+							<div id="right">
+								<div class="container template-gap">
+									<div class="item i1">1</div>
+									<div class="item i2">2</div>
+									<div class="item i3">3</div>
+									<div class="item i4">4</div>
+									<div class="item i5">5</div>
+									<div class="item i6">6</div>
+									<div class="item i7">7</div>
+									<div class="item i8">8</div>
+									<div class="item i9">9</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>positioning</h2>
+					</section>
+
+					<section>
+						<h3>justify-items:</h3>
+						<div class="" id="col4">
+							<p>start</p><p>end</p><p>center</p><p>stretch</p>
+							<div class="container justify-items start">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+								<div class="item i6">6</div>
+								<div class="item i7">7</div>
+								<div class="item i8">8</div>
+								<div class="item i9">9</div>
+							</div>
+							<div class="container justify-items end">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+								<div class="item i6">6</div>
+								<div class="item i7">7</div>
+								<div class="item i8">8</div>
+								<div class="item i9">9</div>
+							</div>
+							<div class="container justify-items center">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+								<div class="item i6">6</div>
+								<div class="item i7">7</div>
+								<div class="item i8">8</div>
+								<div class="item i9">9</div>
+							</div>
+							<div class="container justify-items stretch">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+								<div class="item i6">6</div>
+								<div class="item i7">7</div>
+								<div class="item i8">8</div>
+								<div class="item i9">9</div>
+							</div>
+						</div>
+						<pre class="fragment fade-up"><code>
+.item.i6 {
+	justify-self: center;
+}
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>align-items:</h3>
+						<div class="" id="col4">
+							<p>start</p><p>end</p><p>center</p><p>stretch</p>
+							<div class="container align-items start">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+								<div class="item i6">6</div>
+								<div class="item i7">7</div>
+								<div class="item i8">8</div>
+								<div class="item i9">9</div>
+							</div>
+							<div class="container align-items end">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+								<div class="item i6">6</div>
+								<div class="item i7">7</div>
+								<div class="item i8">8</div>
+								<div class="item i9">9</div>
+							</div>
+							<div class="container align-items center">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+								<div class="item i6">6</div>
+								<div class="item i7">7</div>
+								<div class="item i8">8</div>
+								<div class="item i9">9</div>
+							</div>
+							<div class="container align-items stretch">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+								<div class="item i6">6</div>
+								<div class="item i7">7</div>
+								<div class="item i8">8</div>
+								<div class="item i9">9</div>
+							</div>
+						</div>
+						<pre class="fragment fade-up"><code>
+.item.i6 {
+	align-self: center;
+}
+						</code></pre>
+					</section>
+
+					<!-- <section>
+						<h3>justify-content</h3>
+						<div class="" id="col7">
+							<p>start</p><p>end</p><p>center</p><p>stretch</p><p>space-around</p><p>space-between</p><p>space-evenly</p>
+							<div class="container justify-content start">
+								<div class="item i1"></div>
+								<div class="item i2"></div>
+								<div class="item i3"></div>
+								<div class="item i4"></div>
+								<div class="item i5"></div>
+								<div class="item i6"></div>
+								<div class="item i7"></div>
+								<div class="item i8"></div>
+								<div class="item i9"></div>
+							</div>
+							<div class="container justify-content end">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+								<div class="item i6">6</div>
+								<div class="item i7">7</div>
+								<div class="item i8">8</div>
+								<div class="item i9">9</div>
+							</div>
+							<div class="container justify-content center">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+								<div class="item i6">6</div>
+								<div class="item i7">7</div>
+								<div class="item i8">8</div>
+								<div class="item i9">9</div>
+							</div>
+							<div class="container justify-content stretch">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+								<div class="item i6">6</div>
+								<div class="item i7">7</div>
+								<div class="item i8">8</div>
+								<div class="item i9">9</div>
+							</div>
+						</div>
+					</section> -->
+				</section>
+
+				<section>
+					<section>
+						<h2>Properties for the Children (Grid Items)</h2>
+					</section>
+					<section>
+						<h3>grid-column-start(end) and grid-row-start(end)</h3>
+						<pre><code>
+.item.i1 {
+	grid-column-start: 1;
+	grid-column-end:  span 2;
+	grid-row-start: 1;
+	grid-row-end: 2;
+}
+.item.i2 {
+	grid-column-start: 3;
+	grid-column-end:  4;
+	grid-row-start: 2;
+	grid-row-end: 4;
+}
+						</code></pre>
+						<div class="container items">
+							<div class="item i1">1</div>
+							<div class="item i2">2</div>
+						</div>
+						
+					</section>
+					
+					<!-- <section>
+						<h3>grid-area</h3>
+						<div id="col">
+							<div id="left">
+								<pre><code>
+.container {
+	height: 100%;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: 70px auto 40px;
+	grid-template-areas: 
+			"header header header header"
+			"main main . sidebar"
+			"footer footer footer footer";
+}
+.item-1 {
+	grid-area: header;
+}
+.item-2 {
+	grid-area: main;
+}
+.item-3 {
+	grid-area: sidebar;
+}
+.item-4 {
+	grid-area: footer;
+}
+								</code></pre>
+							</div>
+							<div id="right">
+								<div class="container template-areas">
+									<div class="item i1">1</div>
+									<div class="item i2">2</div>
+									<div class="item i3">3</div>
+									<div class="item i4">4</div>
+								</div>
+							</div>
+						</div>
+					</section> -->
+					<!-- <section>
+							<h3>place-self</h3>
+							<p>place-self = align-self justify-self</p>
+							<pre><code>
+.item.i1 {
+	place-self: center;
+}
+.item.i5 {
+	place-self: start end;
+}
+							</code></pre>
+							<div class="container place-self">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+								<div class="item i6">6</div>
+								<div class="item i7">7</div>
+								<div class="item i8">8</div>
+								<div class="item i9">9</div>
+							</div>
+					</section> -->
+				</section>
+
+				<section>
+					<section>
+						<h2>Explicit and Implicit Grids</h2>
+					</section>
+					<section>
+						<img src="./images/explicit_implicit.jpeg" alt="">
+					</section>
+					<section>
+						<pre><code>
+.grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	grid-template-rows: 100px 100px;
+	grid-gap: 20px;
+	grid-auto-columns: 200px;
+	grid-auto-rows: 60px;
+}
+						</code></pre>
+					</section>
+
+					<section>
+						<h3>grid-auto-flow</h3>
+						<div class="" id="col3">
+							<p>row</p><p>column</p><p>row dense</p>
+							<div class="container auto-flow row">
+							  <div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+							</div>
+							<div class="container auto-flow column">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+							</div>
+							<div class="container auto-flow dense">
+								<div class="item i1">1</div>
+								<div class="item i2">2</div>
+								<div class="item i3">3</div>
+								<div class="item i4">4</div>
+								<div class="item i5">5</div>
+							</div>
+						</div>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Shorthenings</h2>
+					</section>
+					<section>
+						<small>grid-template: none | &ltgrid-template-rows&gt / &ltgrid-template-columns&gt</small>
+						<small><span class="line">grid-</span>gap: &lt<span class="line">grid-</span>row-gap&gt &lt<span class="line">grid-</span>column-gap&gt</small>
+						<small>place-items: &ltalign-items&gt / &ltjustify-items&gt</small>
+						<small>grid-column: &ltstart-line&gt / &ltend-line&gt | &ltstart-line&gt / span &ltvalue&gt</small>
+						<small>grid-row: &ltstart-line&gt / &ltend-line&gt | &ltstart-line&gt / span &ltvalue&gt</small>
+						<small>place-self: &ltalign-self&gt &ltjustify-self&gt</small>
+						<small>grid: grid-template-columns / grid-template-rows | grid-template-areas | grid-auto-rows / grid-auto-columns | grid-auto-flow</small>
+					</section>
+				</section>
+				<section>
+						<section>
+							<h2>Examples</h2>
+						</section>
+						<section data-background-iframe="./resourses-grid/template.html" data-background-interactive>
+						</section>
+					
+						<section data-background-iframe="./resourses-grid/pinter.html" data-background-interactive>
+						</section>
+						<section data-background-iframe="./resourses-grid/hex.html" data-background-interactive>
+							<h2>by Kseso (@Kseso)</h2>
+						</section>
+						<section data-background-iframe="./resourses-grid/mend.html" data-background-interactive>
+							<h2>by Dudley Storey (@dudleystorey)</h2>
+						</section>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
